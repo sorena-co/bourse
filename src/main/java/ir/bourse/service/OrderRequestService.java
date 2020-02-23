@@ -6,14 +6,11 @@ import ir.bourse.service.dto.OrderRequestDTO;
 import ir.bourse.service.mapper.OrderRequestMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Optional;
-
 /**
  * Service Implementation for managing {@link OrderRequest}.
  */
@@ -26,7 +23,6 @@ public class OrderRequestService {
     private final OrderRequestRepository orderRequestRepository;
 
     private final OrderRequestMapper orderRequestMapper;
-
     public OrderRequestService(OrderRequestRepository orderRequestRepository, OrderRequestMapper orderRequestMapper) {
         this.orderRequestRepository = orderRequestRepository;
         this.orderRequestMapper = orderRequestMapper;
@@ -80,5 +76,11 @@ public class OrderRequestService {
     public void delete(Long id) {
         log.debug("Request to delete OrderRequest : {}", id);
         orderRequestRepository.deleteById(id);
+    }
+
+    public Optional<OrderRequestDTO> start(Long id) {
+        Optional<OrderRequestDTO> orderRequestDTO = orderRequestRepository.findById(id).map(orderRequestMapper::toDto);
+
+        return orderRequestDTO;
     }
 }

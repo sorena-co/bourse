@@ -13,6 +13,7 @@ public interface OrderRequestMapper extends EntityMapper<OrderRequestDTO, OrderR
 
     @Mapping(source = "sign.id", target = "signId")
     @Mapping(source = "sign.instrumentName", target = "signInstrumentName")
+    @Mapping(source = "sign.instrumentIsin", target = "signInstrumentIsin")
     @Mapping(source = "userAccount.id", target = "userAccountId")
     @Mapping(source = "userAccount.username", target = "userAccountUsername")
     OrderRequestDTO toDto(OrderRequest orderRequest);

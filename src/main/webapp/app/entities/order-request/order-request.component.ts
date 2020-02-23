@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -114,6 +114,10 @@ export class OrderRequestComponent implements OnInit, OnDestroy {
       result.push('id');
     }
     return result;
+  }
+
+  sendRequest(id) {
+    this.orderRequestService.sendRequest(id).subscribe(value => {});
   }
 
   protected paginateOrderRequests(data: IOrderRequest[], headers: HttpHeaders) {

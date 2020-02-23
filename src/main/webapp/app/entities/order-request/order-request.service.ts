@@ -35,4 +35,8 @@ export class OrderRequestService {
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
+
+  sendRequest(id: number): Observable<EntityResponseType> {
+    return this.http.get<IOrderRequest>(`${this.resourceUrl}/${id}/start`, { observe: 'response' });
+  }
 }

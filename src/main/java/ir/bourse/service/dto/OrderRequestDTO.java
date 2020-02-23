@@ -48,6 +48,8 @@ public class OrderRequestDTO implements Serializable {
 
     private String signInstrumentName;
 
+    private String signInstrumentIsin;
+
     private Long userAccountId;
 
     private String userAccountUsername;
@@ -275,5 +277,14 @@ public class OrderRequestDTO implements Serializable {
             ", userAccount=" + getUserAccountId() +
             ", userAccount='" + getUserAccountUsername() + "'" +
             "}";
+    }
+
+    public String getSignInstrumentIsin() {
+        return signInstrumentIsin;
+    }
+
+    public OrderRequestDTO setSignInstrumentIsin(String signInstrumentIsin) {
+        this.signInstrumentIsin = signInstrumentIsin;
+        return this;
     }
 }

@@ -125,4 +125,12 @@ public class OrderRequestResource {
         orderRequestService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+
+    @GetMapping("/order-requests/{id}/start")
+    public ResponseEntity<OrderRequestDTO> startOrderRequest(@PathVariable Long id) {
+        log.debug("REST request to get OrderRequest : {}", id);
+        Optional<OrderRequestDTO> orderRequestDTO = orderRequestService.start(id);
+        return ResponseUtil.wrapOrNotFound(orderRequestDTO);
+    }
 }

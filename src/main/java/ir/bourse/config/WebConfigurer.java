@@ -138,4 +138,17 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
         return new CorsFilter(source);
     }
 
+    @Bean
+    public PoolingHttpClientConnectionManager poolingConnectionManager() {
+        PoolingHttpClientConnectionManager poolingConnectionManager = new PoolingHttpClientConnectionManager();
+        // set a total amount of connections across all HTTP routes
+        poolingConnectionManager.setMaxTotal(MAX_TOTAL_CONNECTIONS);
+        // set a maximum amount of connections for each HTTP route in pool
+        poolingConnectionManager.setDefaultMaxPerRoute(MAX_ROUTE_CONNECTIONS);
+        // increase the amounts of connections if the host is localhost
+        HttpHost localhost = new HttpHost("http://localhost", 8080);
+        poolingConnectionManager.setMaxPerRoute(new HttpRoute(localhost), MAX_LOCALHOST_CONNECTIONS);
+        return poolingConnectionManager;
+    }
+
 }
