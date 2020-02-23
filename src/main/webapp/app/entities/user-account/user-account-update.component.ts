@@ -21,7 +21,8 @@ export class UserAccountUpdateComponent implements OnInit {
     lastName: [],
     accountType: [],
     username: [],
-    password: []
+    password: [],
+    active: []
   });
 
   constructor(protected userAccountService: UserAccountService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
@@ -40,7 +41,8 @@ export class UserAccountUpdateComponent implements OnInit {
       lastName: userAccount.lastName,
       accountType: userAccount.accountType,
       username: userAccount.username,
-      password: userAccount.password
+      password: userAccount.password,
+      active: userAccount.active
     });
   }
 
@@ -66,7 +68,8 @@ export class UserAccountUpdateComponent implements OnInit {
       lastName: this.editForm.get(['lastName']).value,
       accountType: this.editForm.get(['accountType']).value,
       username: this.editForm.get(['username']).value,
-      password: this.editForm.get(['password']).value
+      password: this.editForm.get(['password']).value,
+      active: this.editForm.get(['active']).value
     };
   }
 

@@ -21,7 +21,7 @@ describe('Service Tests', () => {
       service = injector.get(UserAccountService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new UserAccount(0, 'AAAAAAA', 'AAAAAAA', AccountType.AGAH, 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new UserAccount(0, 'AAAAAAA', 'AAAAAAA', AccountType.AGAH, 'AAAAAAA', 'AAAAAAA', false);
     });
 
     describe('Service methods', () => {
@@ -61,7 +61,8 @@ describe('Service Tests', () => {
             lastName: 'BBBBBB',
             accountType: 'BBBBBB',
             username: 'BBBBBB',
-            password: 'BBBBBB'
+            password: 'BBBBBB',
+            active: true
           },
           elemDefault
         );
@@ -83,7 +84,8 @@ describe('Service Tests', () => {
             lastName: 'BBBBBB',
             accountType: 'BBBBBB',
             username: 'BBBBBB',
-            password: 'BBBBBB'
+            password: 'BBBBBB',
+            active: true
           },
           elemDefault
         );

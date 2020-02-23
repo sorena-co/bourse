@@ -20,7 +20,8 @@
       "lastName": "Last Name",
       "accountType": "Account Type",
       "username": "Username",
-      "password": "Password"
+      "password": "Password",
+      "active": "Active"
     }
   }
 }

@@ -24,6 +24,7 @@
             <th scope="col" ><span jhiTranslate="bApp.userAccount.accountType">Account Type</span></th>
             <th scope="col" ><span jhiTranslate="bApp.userAccount.username">Username</span></th>
             <th scope="col" ><span jhiTranslate="bApp.userAccount.password">Password</span></th>
+            <th scope="col" ><span jhiTranslate="bApp.userAccount.active">Active</span></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -35,6 +36,7 @@
                 <td jhiTranslate="{{'bApp.AccountType.' + userAccount.accountType}}">{{userAccount.accountType}}</td>
                 <td>{{userAccount.username}}</td>
                 <td>{{userAccount.password}}</td>
+                <td>{{userAccount.active}}</td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

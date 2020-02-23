@@ -36,6 +36,9 @@ public class UserAccount implements Serializable {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "active")
+    private Boolean active;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -109,6 +112,19 @@ public class UserAccount implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public Boolean isActive() {
+        return active;
+    }
+
+    public UserAccount active(Boolean active) {
+        this.active = active;
+        return this;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -136,6 +152,7 @@ public class UserAccount implements Serializable {
             ", accountType='" + getAccountType() + "'" +
             ", username='" + getUsername() + "'" +
             ", password='" + getPassword() + "'" +
+            ", active='" + isActive() + "'" +
             "}";
     }
 }

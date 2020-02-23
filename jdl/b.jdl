@@ -3,7 +3,8 @@ entity UserAccount{
     lastName String,
     accountType AccountType,
     username String,
-    password String
+    password String,
+    active Boolean
 }
 enum AccountType{
     AGAH

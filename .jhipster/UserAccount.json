@@ -21,6 +21,10 @@
         {
             "fieldName": "password",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "active",
+            "fieldType": "Boolean"
         }
     ],
     "relationships": [],

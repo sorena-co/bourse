@@ -49,6 +49,9 @@ public class UserAccountResourceIT {
     private static final String DEFAULT_PASSWORD = "AAAAAAAAAA";
     private static final String UPDATED_PASSWORD = "BBBBBBBBBB";
 
+    private static final Boolean DEFAULT_ACTIVE = false;
+    private static final Boolean UPDATED_ACTIVE = true;
+
     @Autowired
     private UserAccountRepository userAccountRepository;
 
@@ -95,7 +98,8 @@ public class UserAccountResourceIT {
             .lastName(DEFAULT_LAST_NAME)
             .accountType(DEFAULT_ACCOUNT_TYPE)
             .username(DEFAULT_USERNAME)
-            .password(DEFAULT_PASSWORD);
+            .password(DEFAULT_PASSWORD)
+            .active(DEFAULT_ACTIVE);
         return userAccount;
     }
     /**
@@ -110,7 +114,8 @@ public class UserAccountResourceIT {
             .lastName(UPDATED_LAST_NAME)
             .accountType(UPDATED_ACCOUNT_TYPE)
             .username(UPDATED_USERNAME)
-            .password(UPDATED_PASSWORD);
+            .password(UPDATED_PASSWORD)
+            .active(UPDATED_ACTIVE);
         return userAccount;
     }
 
@@ -139,6 +144,7 @@ public class UserAccountResourceIT {
         assertThat(testUserAccount.getAccountType()).isEqualTo(DEFAULT_ACCOUNT_TYPE);
         assertThat(testUserAccount.getUsername()).isEqualTo(DEFAULT_USERNAME);
         assertThat(testUserAccount.getPassword()).isEqualTo(DEFAULT_PASSWORD);
+        assertThat(testUserAccount.isActive()).isEqualTo(DEFAULT_ACTIVE);
     }
 
     @Test
@@ -176,7 +182,8 @@ public class UserAccountResourceIT {
             .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME)))
             .andExpect(jsonPath("$.[*].accountType").value(hasItem(DEFAULT_ACCOUNT_TYPE.toString())))
             .andExpect(jsonPath("$.[*].username").value(hasItem(DEFAULT_USERNAME)))
-            .andExpect(jsonPath("$.[*].password").value(hasItem(DEFAULT_PASSWORD)));
+            .andExpect(jsonPath("$.[*].password").value(hasItem(DEFAULT_PASSWORD)))
+            .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())));
     }
     
     @Test
@@ -194,7 +201,8 @@ public class UserAccountResourceIT {
             .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME))
             .andExpect(jsonPath("$.accountType").value(DEFAULT_ACCOUNT_TYPE.toString()))
             .andExpect(jsonPath("$.username").value(DEFAULT_USERNAME))
-            .andExpect(jsonPath("$.password").value(DEFAULT_PASSWORD));
+            .andExpect(jsonPath("$.password").value(DEFAULT_PASSWORD))
+            .andExpect(jsonPath("$.active").value(DEFAULT_ACTIVE.booleanValue()));
     }
 
     @Test
@@ -222,7 +230,8 @@ public class UserAccountResourceIT {
             .lastName(UPDATED_LAST_NAME)
             .accountType(UPDATED_ACCOUNT_TYPE)
             .username(UPDATED_USERNAME)
-            .password(UPDATED_PASSWORD);
+            .password(UPDATED_PASSWORD)
+            .active(UPDATED_ACTIVE);
 
         restUserAccountMockMvc.perform(put("/api/user-accounts")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -238,6 +247,7 @@ public class UserAccountResourceIT {
         assertThat(testUserAccount.getAccountType()).isEqualTo(UPDATED_ACCOUNT_TYPE);
         assertThat(testUserAccount.getUsername()).isEqualTo(UPDATED_USERNAME);
         assertThat(testUserAccount.getPassword()).isEqualTo(UPDATED_PASSWORD);
+        assertThat(testUserAccount.isActive()).isEqualTo(UPDATED_ACTIVE);
     }
 
     @Test

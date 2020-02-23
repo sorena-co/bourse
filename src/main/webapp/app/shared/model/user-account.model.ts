@@ -7,6 +7,7 @@ export interface IUserAccount {
   accountType?: AccountType;
   username?: string;
   password?: string;
+  active?: boolean;
 }
 
 export class UserAccount implements IUserAccount {
@@ -16,6 +17,9 @@ export class UserAccount implements IUserAccount {
     public lastName?: string,
     public accountType?: AccountType,
     public username?: string,
-    public password?: string
-  ) {}
+    public password?: string,
+    public active?: boolean
+  ) {
+    this.active = this.active || false;
+  }
 }
