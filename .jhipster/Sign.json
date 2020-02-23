@@ -1,0 +1,28 @@
+{
+    "name": "Sign",
+    "fields": [
+        {
+            "fieldName": "instrumentId",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "instrumentIsin",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "instrumentName",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20200223081758",
+    "entityTableName": "sign",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

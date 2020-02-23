@@ -1,16 +1,21 @@
 package ir.bourse.web.rest;
 
-import ir.bourse.domain.UserAccount;
-import ir.bourse.repository.UserAccountRepository;
+import ir.bourse.service.UserAccountService;
 import ir.bourse.web.rest.errors.BadRequestAlertException;
+import ir.bourse.service.dto.UserAccountDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional; 
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -24,7 +29,6 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api")
-@Transactional
 public class UserAccountResource {
 
     private final Logger log = LoggerFactory.getLogger(UserAccountResource.class);
@@ -34,26 +38,26 @@ public class UserAccountResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final UserAccountRepository userAccountRepository;
+    private final UserAccountService userAccountService;
 
-    public UserAccountResource(UserAccountRepository userAccountRepository) {
-        this.userAccountRepository = userAccountRepository;
+    public UserAccountResource(UserAccountService userAccountService) {
+        this.userAccountService = userAccountService;
     }
 
     /**
      * {@code POST  /user-accounts} : Create a new userAccount.
      *
-     * @param userAccount the userAccount to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new userAccount, or with status {@code 400 (Bad Request)} if the userAccount has already an ID.
+     * @param userAccountDTO the userAccountDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new userAccountDTO, or with status {@code 400 (Bad Request)} if the userAccount has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/user-accounts")
-    public ResponseEntity<UserAccount> createUserAccount(@RequestBody UserAccount userAccount) throws URISyntaxException {
-        log.debug("REST request to save UserAccount : {}", userAccount);
-        if (userAccount.getId() != null) {
+    public ResponseEntity<UserAccountDTO> createUserAccount(@RequestBody UserAccountDTO userAccountDTO) throws URISyntaxException {
+        log.debug("REST request to save UserAccount : {}", userAccountDTO);
+        if (userAccountDTO.getId() != null) {
             throw new BadRequestAlertException("A new userAccount cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        UserAccount result = userAccountRepository.save(userAccount);
+        UserAccountDTO result = userAccountService.save(userAccountDTO);
         return ResponseEntity.created(new URI("/api/user-accounts/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -62,21 +66,21 @@ public class UserAccountResource {
     /**
      * {@code PUT  /user-accounts} : Updates an existing userAccount.
      *
-     * @param userAccount the userAccount to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated userAccount,
-     * or with status {@code 400 (Bad Request)} if the userAccount is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the userAccount couldn't be updated.
+     * @param userAccountDTO the userAccountDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated userAccountDTO,
+     * or with status {@code 400 (Bad Request)} if the userAccountDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the userAccountDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/user-accounts")
-    public ResponseEntity<UserAccount> updateUserAccount(@RequestBody UserAccount userAccount) throws URISyntaxException {
-        log.debug("REST request to update UserAccount : {}", userAccount);
-        if (userAccount.getId() == null) {
+    public ResponseEntity<UserAccountDTO> updateUserAccount(@RequestBody UserAccountDTO userAccountDTO) throws URISyntaxException {
+        log.debug("REST request to update UserAccount : {}", userAccountDTO);
+        if (userAccountDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        UserAccount result = userAccountRepository.save(userAccount);
+        UserAccountDTO result = userAccountService.save(userAccountDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, userAccount.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, userAccountDTO.getId().toString()))
             .body(result);
     }
 
@@ -84,37 +88,41 @@ public class UserAccountResource {
      * {@code GET  /user-accounts} : get all the userAccounts.
      *
 
+     * @param pageable the pagination information.
+
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of userAccounts in body.
      */
     @GetMapping("/user-accounts")
-    public List<UserAccount> getAllUserAccounts() {
-        log.debug("REST request to get all UserAccounts");
-        return userAccountRepository.findAll();
+    public ResponseEntity<List<UserAccountDTO>> getAllUserAccounts(Pageable pageable) {
+        log.debug("REST request to get a page of UserAccounts");
+        Page<UserAccountDTO> page = userAccountService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**
      * {@code GET  /user-accounts/:id} : get the "id" userAccount.
      *
-     * @param id the id of the userAccount to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the userAccount, or with status {@code 404 (Not Found)}.
+     * @param id the id of the userAccountDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the userAccountDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/user-accounts/{id}")
-    public ResponseEntity<UserAccount> getUserAccount(@PathVariable Long id) {
+    public ResponseEntity<UserAccountDTO> getUserAccount(@PathVariable Long id) {
         log.debug("REST request to get UserAccount : {}", id);
-        Optional<UserAccount> userAccount = userAccountRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(userAccount);
+        Optional<UserAccountDTO> userAccountDTO = userAccountService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(userAccountDTO);
     }
 
     /**
      * {@code DELETE  /user-accounts/:id} : delete the "id" userAccount.
      *
-     * @param id the id of the userAccount to delete.
+     * @param id the id of the userAccountDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/user-accounts/{id}")
     public ResponseEntity<Void> deleteUserAccount(@PathVariable Long id) {
         log.debug("REST request to delete UserAccount : {}", id);
-        userAccountRepository.deleteById(id);
+        userAccountService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }

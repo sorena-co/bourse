@@ -1,0 +1,107 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="bApp.orderRequest.home.title">Order Requests</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-order-request" [routerLink]="['/order-request/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="bApp.orderRequest.home.createLabel">
+            Create a new Order Request
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="orderRequests?.length === 0">
+        <span jhiTranslate="bApp.orderRequest.home.notFound">No orderRequests found</span>
+    </div>
+    <div class="table-responsive" *ngIf="orderRequests?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="customerId"><span jhiTranslate="bApp.orderRequest.customerId">Customer Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="customerTitle"><span jhiTranslate="bApp.orderRequest.customerTitle">Customer Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="orderSide"><span jhiTranslate="bApp.orderRequest.orderSide">Order Side</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="orderSideId"><span jhiTranslate="bApp.orderRequest.orderSideId">Order Side Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="price"><span jhiTranslate="bApp.orderRequest.price">Price</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="quantity"><span jhiTranslate="bApp.orderRequest.quantity">Quantity</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="value"><span jhiTranslate="bApp.orderRequest.value">Value</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="validityDate"><span jhiTranslate="bApp.orderRequest.validityDate">Validity Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="minimumQuantity"><span jhiTranslate="bApp.orderRequest.minimumQuantity">Minimum Quantity</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="disclosedQuantity"><span jhiTranslate="bApp.orderRequest.disclosedQuantity">Disclosed Quantity</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="validityType"><span jhiTranslate="bApp.orderRequest.validityType">Validity Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="bankAccountId"><span jhiTranslate="bApp.orderRequest.bankAccountId">Bank Account Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="expectedRemainingQuantity"><span jhiTranslate="bApp.orderRequest.expectedRemainingQuantity">Expected Remaining Quantity</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="tradedQuantity"><span jhiTranslate="bApp.orderRequest.tradedQuantity">Traded Quantity</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="categoryId"><span jhiTranslate="bApp.orderRequest.categoryId">Category Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="remainingQuantity"><span jhiTranslate="bApp.orderRequest.remainingQuantity">Remaining Quantity</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="orderExecuterId"><span jhiTranslate="bApp.orderRequest.orderExecuterId">Order Executer Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="signInstrumentName"><span jhiTranslate="bApp.orderRequest.sign">Sign</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="userAccountUsername"><span jhiTranslate="bApp.orderRequest.userAccount">User Account</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let orderRequest of orderRequests ;trackBy: trackId">
+                <td><a [routerLink]="['/order-request', orderRequest.id, 'view' ]">{{orderRequest.id}}</a></td>
+                <td>{{orderRequest.customerId}}</td>
+                <td>{{orderRequest.customerTitle}}</td>
+                <td>{{orderRequest.orderSide}}</td>
+                <td>{{orderRequest.orderSideId}}</td>
+                <td>{{orderRequest.price}}</td>
+                <td>{{orderRequest.quantity}}</td>
+                <td>{{orderRequest.value}}</td>
+                <td>{{orderRequest.validityDate}}</td>
+                <td>{{orderRequest.minimumQuantity}}</td>
+                <td>{{orderRequest.disclosedQuantity}}</td>
+                <td>{{orderRequest.validityType}}</td>
+                <td>{{orderRequest.bankAccountId}}</td>
+                <td>{{orderRequest.expectedRemainingQuantity}}</td>
+                <td>{{orderRequest.tradedQuantity}}</td>
+                <td>{{orderRequest.categoryId}}</td>
+                <td>{{orderRequest.remainingQuantity}}</td>
+                <td>{{orderRequest.orderExecuterId}}</td>
+                <td>
+                    <div *ngIf="orderRequest.signId">
+                        <a [routerLink]="['/sign', orderRequest.signId , 'view' ]" >{{orderRequest.signInstrumentName}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="orderRequest.userAccountId">
+                        <a [routerLink]="['/user-account', orderRequest.userAccountId , 'view' ]" >{{orderRequest.userAccountUsername}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/order-request', orderRequest.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/order-request', orderRequest.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(orderRequest)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="orderRequests?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

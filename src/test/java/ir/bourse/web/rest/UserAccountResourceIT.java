@@ -3,6 +3,9 @@ package ir.bourse.web.rest;
 import ir.bourse.BApp;
 import ir.bourse.domain.UserAccount;
 import ir.bourse.repository.UserAccountRepository;
+import ir.bourse.service.UserAccountService;
+import ir.bourse.service.dto.UserAccountDTO;
+import ir.bourse.service.mapper.UserAccountMapper;
 import ir.bourse.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -56,6 +59,12 @@ public class UserAccountResourceIT {
     private UserAccountRepository userAccountRepository;
 
     @Autowired
+    private UserAccountMapper userAccountMapper;
+
+    @Autowired
+    private UserAccountService userAccountService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -77,7 +86,7 @@ public class UserAccountResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final UserAccountResource userAccountResource = new UserAccountResource(userAccountRepository);
+        final UserAccountResource userAccountResource = new UserAccountResource(userAccountService);
         this.restUserAccountMockMvc = MockMvcBuilders.standaloneSetup(userAccountResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -130,9 +139,10 @@ public class UserAccountResourceIT {
         int databaseSizeBeforeCreate = userAccountRepository.findAll().size();
 
         // Create the UserAccount
+        UserAccountDTO userAccountDTO = userAccountMapper.toDto(userAccount);
         restUserAccountMockMvc.perform(post("/api/user-accounts")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(userAccount)))
+            .content(TestUtil.convertObjectToJsonBytes(userAccountDTO)))
             .andExpect(status().isCreated());
 
         // Validate the UserAccount in the database
@@ -154,11 +164,12 @@ public class UserAccountResourceIT {
 
         // Create the UserAccount with an existing ID
         userAccount.setId(1L);
+        UserAccountDTO userAccountDTO = userAccountMapper.toDto(userAccount);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restUserAccountMockMvc.perform(post("/api/user-accounts")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(userAccount)))
+            .content(TestUtil.convertObjectToJsonBytes(userAccountDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the UserAccount in the database
@@ -232,10 +243,11 @@ public class UserAccountResourceIT {
             .username(UPDATED_USERNAME)
             .password(UPDATED_PASSWORD)
             .active(UPDATED_ACTIVE);
+        UserAccountDTO userAccountDTO = userAccountMapper.toDto(updatedUserAccount);
 
         restUserAccountMockMvc.perform(put("/api/user-accounts")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedUserAccount)))
+            .content(TestUtil.convertObjectToJsonBytes(userAccountDTO)))
             .andExpect(status().isOk());
 
         // Validate the UserAccount in the database
@@ -256,11 +268,12 @@ public class UserAccountResourceIT {
         int databaseSizeBeforeUpdate = userAccountRepository.findAll().size();
 
         // Create the UserAccount
+        UserAccountDTO userAccountDTO = userAccountMapper.toDto(userAccount);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restUserAccountMockMvc.perform(put("/api/user-accounts")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(userAccount)))
+            .content(TestUtil.convertObjectToJsonBytes(userAccountDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the UserAccount in the database

@@ -1,0 +1,99 @@
+{
+    "name": "OrderRequest",
+    "fields": [
+        {
+            "fieldName": "customerId",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "customerTitle",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "orderSide",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "orderSideId",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "price",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "quantity",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "value",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "validityDate",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "minimumQuantity",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "disclosedQuantity",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "validityType",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "bankAccountId",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "expectedRemainingQuantity",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "tradedQuantity",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "categoryId",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "remainingQuantity",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "orderExecuterId",
+            "fieldType": "Long"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "sign",
+            "otherEntityRelationshipName": "orderRequest",
+            "relationshipName": "sign",
+            "otherEntityField": "instrumentName"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "userAccount",
+            "otherEntityRelationshipName": "orderRequest",
+            "relationshipName": "userAccount",
+            "otherEntityField": "username"
+        }
+    ],
+    "changelogDate": "20200223081759",
+    "entityTableName": "order_request",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

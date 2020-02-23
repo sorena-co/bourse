@@ -5,18 +5,18 @@ import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { IUserAccount } from 'app/shared/model/user-account.model';
+import { ISign } from 'app/shared/model/sign.model';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
-import { UserAccountService } from './user-account.service';
-import { UserAccountDeleteDialogComponent } from './user-account-delete-dialog.component';
+import { SignService } from './sign.service';
+import { SignDeleteDialogComponent } from './sign-delete-dialog.component';
 
 @Component({
-  selector: 'jhi-user-account',
-  templateUrl: './user-account.component.html'
+  selector: 'jhi-sign',
+  templateUrl: './sign.component.html'
 })
-export class UserAccountComponent implements OnInit, OnDestroy {
-  userAccounts: IUserAccount[];
+export class SignComponent implements OnInit, OnDestroy {
+  signs: ISign[];
   error: any;
   success: any;
   eventSubscriber: Subscription;
@@ -30,7 +30,7 @@ export class UserAccountComponent implements OnInit, OnDestroy {
   reverse: any;
 
   constructor(
-    protected userAccountService: UserAccountService,
+    protected signService: SignService,
     protected parseLinks: JhiParseLinks,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
@@ -47,13 +47,13 @@ export class UserAccountComponent implements OnInit, OnDestroy {
   }
 
   loadAll() {
-    this.userAccountService
+    this.signService
       .query({
         page: this.page - 1,
         size: this.itemsPerPage,
         sort: this.sort()
       })
-      .subscribe((res: HttpResponse<IUserAccount[]>) => this.paginateUserAccounts(res.body, res.headers));
+      .subscribe((res: HttpResponse<ISign[]>) => this.paginateSigns(res.body, res.headers));
   }
 
   loadPage(page: number) {
@@ -64,7 +64,7 @@ export class UserAccountComponent implements OnInit, OnDestroy {
   }
 
   transition() {
-    this.router.navigate(['/user-account'], {
+    this.router.navigate(['/sign'], {
       queryParams: {
         page: this.page,
         size: this.itemsPerPage,
@@ -77,7 +77,7 @@ export class UserAccountComponent implements OnInit, OnDestroy {
   clear() {
     this.page = 0;
     this.router.navigate([
-      '/user-account',
+      '/sign',
       {
         page: this.page,
         sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -88,24 +88,24 @@ export class UserAccountComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadAll();
-    this.registerChangeInUserAccounts();
+    this.registerChangeInSigns();
   }
 
   ngOnDestroy() {
     this.eventManager.destroy(this.eventSubscriber);
   }
 
-  trackId(index: number, item: IUserAccount) {
+  trackId(index: number, item: ISign) {
     return item.id;
   }
 
-  registerChangeInUserAccounts() {
-    this.eventSubscriber = this.eventManager.subscribe('userAccountListModification', () => this.loadAll());
+  registerChangeInSigns() {
+    this.eventSubscriber = this.eventManager.subscribe('signListModification', () => this.loadAll());
   }
 
-  delete(userAccount: IUserAccount) {
-    const modalRef = this.modalService.open(UserAccountDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.userAccount = userAccount;
+  delete(sign: ISign) {
+    const modalRef = this.modalService.open(SignDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.sign = sign;
   }
 
   sort() {
@@ -116,9 +116,9 @@ export class UserAccountComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  protected paginateUserAccounts(data: IUserAccount[], headers: HttpHeaders) {
+  protected paginateSigns(data: ISign[], headers: HttpHeaders) {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-    this.userAccounts = data;
+    this.signs = data;
   }
 }
