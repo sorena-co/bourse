@@ -28,7 +28,7 @@
         }
     ],
     "relationships": [],
-    "changelogDate": "20200223081757",
+    "changelogDate": "20200223085231",
     "entityTableName": "user_account",
     "dto": "mapstruct",
     "pagination": "pagination",
