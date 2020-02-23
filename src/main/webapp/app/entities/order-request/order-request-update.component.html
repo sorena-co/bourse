@@ -4,30 +4,10 @@
             <h2 id="jhi-order-request-heading" jhiTranslate="bApp.orderRequest.home.createOrEditLabel">Create or edit a Order Request</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!editForm.get('id').value">
-                    <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
-                        readonly />
-                </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="bApp.orderRequest.customerId" for="field_customerId">Customer Id</label>
                     <input type="number" class="form-control" name="customerId" id="field_customerId"
                            formControlName="customerId"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="bApp.orderRequest.customerTitle" for="field_customerTitle">Customer Title</label>
-                    <input type="text" class="form-control" name="customerTitle" id="field_customerTitle"
-                           formControlName="customerTitle"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="bApp.orderRequest.orderSide" for="field_orderSide">Order Side</label>
-                    <input type="text" class="form-control" name="orderSide" id="field_orderSide"
-                           formControlName="orderSide"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="bApp.orderRequest.orderSideId" for="field_orderSideId">Order Side Id</label>
-                    <input type="number" class="form-control" name="orderSideId" id="field_orderSideId"
-                           formControlName="orderSideId"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="bApp.orderRequest.price" for="field_price">Price</label>
@@ -38,61 +18,6 @@
                     <label class="form-control-label" jhiTranslate="bApp.orderRequest.quantity" for="field_quantity">Quantity</label>
                     <input type="number" class="form-control" name="quantity" id="field_quantity"
                            formControlName="quantity"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="bApp.orderRequest.value" for="field_value">Value</label>
-                    <input type="number" class="form-control" name="value" id="field_value"
-                           formControlName="value"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="bApp.orderRequest.validityDate" for="field_validityDate">Validity Date</label>
-                    <input type="text" class="form-control" name="validityDate" id="field_validityDate"
-                           formControlName="validityDate"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="bApp.orderRequest.minimumQuantity" for="field_minimumQuantity">Minimum Quantity</label>
-                    <input type="number" class="form-control" name="minimumQuantity" id="field_minimumQuantity"
-                           formControlName="minimumQuantity"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="bApp.orderRequest.disclosedQuantity" for="field_disclosedQuantity">Disclosed Quantity</label>
-                    <input type="number" class="form-control" name="disclosedQuantity" id="field_disclosedQuantity"
-                           formControlName="disclosedQuantity"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="bApp.orderRequest.validityType" for="field_validityType">Validity Type</label>
-                    <input type="number" class="form-control" name="validityType" id="field_validityType"
-                           formControlName="validityType"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="bApp.orderRequest.bankAccountId" for="field_bankAccountId">Bank Account Id</label>
-                    <input type="number" class="form-control" name="bankAccountId" id="field_bankAccountId"
-                           formControlName="bankAccountId"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="bApp.orderRequest.expectedRemainingQuantity" for="field_expectedRemainingQuantity">Expected Remaining Quantity</label>
-                    <input type="number" class="form-control" name="expectedRemainingQuantity" id="field_expectedRemainingQuantity"
-                           formControlName="expectedRemainingQuantity"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="bApp.orderRequest.tradedQuantity" for="field_tradedQuantity">Traded Quantity</label>
-                    <input type="number" class="form-control" name="tradedQuantity" id="field_tradedQuantity"
-                           formControlName="tradedQuantity"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="bApp.orderRequest.categoryId" for="field_categoryId">Category Id</label>
-                    <input type="text" class="form-control" name="categoryId" id="field_categoryId"
-                           formControlName="categoryId"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="bApp.orderRequest.remainingQuantity" for="field_remainingQuantity">Remaining Quantity</label>
-                    <input type="number" class="form-control" name="remainingQuantity" id="field_remainingQuantity"
-                           formControlName="remainingQuantity"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="bApp.orderRequest.orderExecuterId" for="field_orderExecuterId">Order Executer Id</label>
-                    <input type="number" class="form-control" name="orderExecuterId" id="field_orderExecuterId"
-                           formControlName="orderExecuterId"/>
                 </div>
 
                 <div class="form-group">

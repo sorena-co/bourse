@@ -5,7 +5,10 @@ import io.github.jhipster.config.JHipsterProperties;
 import io.github.jhipster.web.filter.CachingHttpHeadersFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.web.server.*;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.boot.web.server.MimeMappings;
+import org.springframework.boot.web.server.WebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
@@ -13,16 +16,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 import org.springframework.http.MediaType;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import javax.servlet.*;
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.EnumSet;
 
 import static java.net.URLDecoder.decode;
 
@@ -139,16 +146,9 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
     }
 
     @Bean
-    public PoolingHttpClientConnectionManager poolingConnectionManager() {
-        PoolingHttpClientConnectionManager poolingConnectionManager = new PoolingHttpClientConnectionManager();
-        // set a total amount of connections across all HTTP routes
-        poolingConnectionManager.setMaxTotal(MAX_TOTAL_CONNECTIONS);
-        // set a maximum amount of connections for each HTTP route in pool
-        poolingConnectionManager.setDefaultMaxPerRoute(MAX_ROUTE_CONNECTIONS);
-        // increase the amounts of connections if the host is localhost
-        HttpHost localhost = new HttpHost("http://localhost", 8080);
-        poolingConnectionManager.setMaxPerRoute(new HttpRoute(localhost), MAX_LOCALHOST_CONNECTIONS);
-        return poolingConnectionManager;
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        // Do any additional configuration here
+        return builder.build();
     }
 
 }
