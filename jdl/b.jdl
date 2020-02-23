@@ -6,6 +6,42 @@ entity UserAccount{
     password String,
     active Boolean
 }
+
+entity Sign{
+   instrumentId Long,
+   instrumentIsin String,
+   instrumentName String
+}
+
+entity OrderRequest{
+   customerId Long,
+   customerTitle String,
+   orderSide String,
+   orderSideId Long,
+   price Long,
+   quantity Long,
+   value Long,
+   validityDate String,
+   minimumQuantity Long,
+   disclosedQuantity Long,
+   validityType Long,
+   bankAccountId Long,
+   expectedRemainingQuantity Long,
+   tradedQuantity Long,
+   categoryId String,
+   remainingQuantity Long,
+   orderExecuterId Long
+}
+
 enum AccountType{
     AGAH
 }
+
+relationship ManyToOne{
+    OrderRequest{sign(instrumentName)} to Sign,
+    OrderRequest{userAccount(username)} to UserAccount
+}
+
+dto * with mapstruct
+paginate * with pagination
+service * with serviceClass

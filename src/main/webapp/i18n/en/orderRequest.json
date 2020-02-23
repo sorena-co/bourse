@@ -1,0 +1,40 @@
+{
+  "bApp": {
+    "orderRequest": {
+      "home": {
+        "title": "Order Requests",
+        "createLabel": "Create a new Order Request",
+        "createOrEditLabel": "Create or edit a Order Request",
+        "notFound": "No Order Requests found"
+      },
+      "created": "A new Order Request is created with identifier {{ param }}",
+      "updated": "A Order Request is updated with identifier {{ param }}",
+      "deleted": "A Order Request is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Order Request {{ id }}?"
+      },
+      "detail": {
+        "title": "Order Request"
+      },
+      "customerId": "Customer Id",
+      "customerTitle": "Customer Title",
+      "orderSide": "Order Side",
+      "orderSideId": "Order Side Id",
+      "price": "Price",
+      "quantity": "Quantity",
+      "value": "Value",
+      "validityDate": "Validity Date",
+      "minimumQuantity": "Minimum Quantity",
+      "disclosedQuantity": "Disclosed Quantity",
+      "validityType": "Validity Type",
+      "bankAccountId": "Bank Account Id",
+      "expectedRemainingQuantity": "Expected Remaining Quantity",
+      "tradedQuantity": "Traded Quantity",
+      "categoryId": "Category Id",
+      "remainingQuantity": "Remaining Quantity",
+      "orderExecuterId": "Order Executer Id",
+      "sign": "Sign",
+      "userAccount": "User Account"
+    }
+  }
+}

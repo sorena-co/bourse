@@ -5,18 +5,18 @@ import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { IUserAccount } from 'app/shared/model/user-account.model';
+import { IOrderRequest } from 'app/shared/model/order-request.model';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
-import { UserAccountService } from './user-account.service';
-import { UserAccountDeleteDialogComponent } from './user-account-delete-dialog.component';
+import { OrderRequestService } from './order-request.service';
+import { OrderRequestDeleteDialogComponent } from './order-request-delete-dialog.component';
 
 @Component({
-  selector: 'jhi-user-account',
-  templateUrl: './user-account.component.html'
+  selector: 'jhi-order-request',
+  templateUrl: './order-request.component.html'
 })
-export class UserAccountComponent implements OnInit, OnDestroy {
-  userAccounts: IUserAccount[];
+export class OrderRequestComponent implements OnInit, OnDestroy {
+  orderRequests: IOrderRequest[];
   error: any;
   success: any;
   eventSubscriber: Subscription;
@@ -30,7 +30,7 @@ export class UserAccountComponent implements OnInit, OnDestroy {
   reverse: any;
 
   constructor(
-    protected userAccountService: UserAccountService,
+    protected orderRequestService: OrderRequestService,
     protected parseLinks: JhiParseLinks,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
@@ -47,13 +47,13 @@ export class UserAccountComponent implements OnInit, OnDestroy {
   }
 
   loadAll() {
-    this.userAccountService
+    this.orderRequestService
       .query({
         page: this.page - 1,
         size: this.itemsPerPage,
         sort: this.sort()
       })
-      .subscribe((res: HttpResponse<IUserAccount[]>) => this.paginateUserAccounts(res.body, res.headers));
+      .subscribe((res: HttpResponse<IOrderRequest[]>) => this.paginateOrderRequests(res.body, res.headers));
   }
 
   loadPage(page: number) {
@@ -64,7 +64,7 @@ export class UserAccountComponent implements OnInit, OnDestroy {
   }
 
   transition() {
-    this.router.navigate(['/user-account'], {
+    this.router.navigate(['/order-request'], {
       queryParams: {
         page: this.page,
         size: this.itemsPerPage,
@@ -77,7 +77,7 @@ export class UserAccountComponent implements OnInit, OnDestroy {
   clear() {
     this.page = 0;
     this.router.navigate([
-      '/user-account',
+      '/order-request',
       {
         page: this.page,
         sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -88,24 +88,24 @@ export class UserAccountComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadAll();
-    this.registerChangeInUserAccounts();
+    this.registerChangeInOrderRequests();
   }
 
   ngOnDestroy() {
     this.eventManager.destroy(this.eventSubscriber);
   }
 
-  trackId(index: number, item: IUserAccount) {
+  trackId(index: number, item: IOrderRequest) {
     return item.id;
   }
 
-  registerChangeInUserAccounts() {
-    this.eventSubscriber = this.eventManager.subscribe('userAccountListModification', () => this.loadAll());
+  registerChangeInOrderRequests() {
+    this.eventSubscriber = this.eventManager.subscribe('orderRequestListModification', () => this.loadAll());
   }
 
-  delete(userAccount: IUserAccount) {
-    const modalRef = this.modalService.open(UserAccountDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.userAccount = userAccount;
+  delete(orderRequest: IOrderRequest) {
+    const modalRef = this.modalService.open(OrderRequestDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.orderRequest = orderRequest;
   }
 
   sort() {
@@ -116,9 +116,9 @@ export class UserAccountComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  protected paginateUserAccounts(data: IUserAccount[], headers: HttpHeaders) {
+  protected paginateOrderRequests(data: IOrderRequest[], headers: HttpHeaders) {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-    this.userAccounts = data;
+    this.orderRequests = data;
   }
 }

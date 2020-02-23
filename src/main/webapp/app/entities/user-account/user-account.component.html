@@ -17,14 +17,14 @@
     <div class="table-responsive" *ngIf="userAccounts?.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
-            <tr>
-            <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
-            <th scope="col" ><span jhiTranslate="bApp.userAccount.firstName">First Name</span></th>
-            <th scope="col" ><span jhiTranslate="bApp.userAccount.lastName">Last Name</span></th>
-            <th scope="col" ><span jhiTranslate="bApp.userAccount.accountType">Account Type</span></th>
-            <th scope="col" ><span jhiTranslate="bApp.userAccount.username">Username</span></th>
-            <th scope="col" ><span jhiTranslate="bApp.userAccount.password">Password</span></th>
-            <th scope="col" ><span jhiTranslate="bApp.userAccount.active">Active</span></th>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="firstName"><span jhiTranslate="bApp.userAccount.firstName">First Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="lastName"><span jhiTranslate="bApp.userAccount.lastName">Last Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="accountType"><span jhiTranslate="bApp.userAccount.accountType">Account Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="username"><span jhiTranslate="bApp.userAccount.username">Username</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="password"><span jhiTranslate="bApp.userAccount.password">Password</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="active"><span jhiTranslate="bApp.userAccount.active">Active</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -61,5 +61,13 @@
             </tr>
             </tbody>
         </table>
+    </div>
+    <div [hidden]="userAccounts?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
     </div>
 </div>

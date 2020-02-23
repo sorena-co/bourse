@@ -1,0 +1,103 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="orderRequest">
+            <h2><span jhiTranslate="bApp.orderRequest.detail.title">Order Request</span> {{orderRequest.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="bApp.orderRequest.customerId">Customer Id</span></dt>
+                <dd>
+                    <span>{{orderRequest.customerId}}</span>
+                </dd>
+                <dt><span jhiTranslate="bApp.orderRequest.customerTitle">Customer Title</span></dt>
+                <dd>
+                    <span>{{orderRequest.customerTitle}}</span>
+                </dd>
+                <dt><span jhiTranslate="bApp.orderRequest.orderSide">Order Side</span></dt>
+                <dd>
+                    <span>{{orderRequest.orderSide}}</span>
+                </dd>
+                <dt><span jhiTranslate="bApp.orderRequest.orderSideId">Order Side Id</span></dt>
+                <dd>
+                    <span>{{orderRequest.orderSideId}}</span>
+                </dd>
+                <dt><span jhiTranslate="bApp.orderRequest.price">Price</span></dt>
+                <dd>
+                    <span>{{orderRequest.price}}</span>
+                </dd>
+                <dt><span jhiTranslate="bApp.orderRequest.quantity">Quantity</span></dt>
+                <dd>
+                    <span>{{orderRequest.quantity}}</span>
+                </dd>
+                <dt><span jhiTranslate="bApp.orderRequest.value">Value</span></dt>
+                <dd>
+                    <span>{{orderRequest.value}}</span>
+                </dd>
+                <dt><span jhiTranslate="bApp.orderRequest.validityDate">Validity Date</span></dt>
+                <dd>
+                    <span>{{orderRequest.validityDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="bApp.orderRequest.minimumQuantity">Minimum Quantity</span></dt>
+                <dd>
+                    <span>{{orderRequest.minimumQuantity}}</span>
+                </dd>
+                <dt><span jhiTranslate="bApp.orderRequest.disclosedQuantity">Disclosed Quantity</span></dt>
+                <dd>
+                    <span>{{orderRequest.disclosedQuantity}}</span>
+                </dd>
+                <dt><span jhiTranslate="bApp.orderRequest.validityType">Validity Type</span></dt>
+                <dd>
+                    <span>{{orderRequest.validityType}}</span>
+                </dd>
+                <dt><span jhiTranslate="bApp.orderRequest.bankAccountId">Bank Account Id</span></dt>
+                <dd>
+                    <span>{{orderRequest.bankAccountId}}</span>
+                </dd>
+                <dt><span jhiTranslate="bApp.orderRequest.expectedRemainingQuantity">Expected Remaining Quantity</span></dt>
+                <dd>
+                    <span>{{orderRequest.expectedRemainingQuantity}}</span>
+                </dd>
+                <dt><span jhiTranslate="bApp.orderRequest.tradedQuantity">Traded Quantity</span></dt>
+                <dd>
+                    <span>{{orderRequest.tradedQuantity}}</span>
+                </dd>
+                <dt><span jhiTranslate="bApp.orderRequest.categoryId">Category Id</span></dt>
+                <dd>
+                    <span>{{orderRequest.categoryId}}</span>
+                </dd>
+                <dt><span jhiTranslate="bApp.orderRequest.remainingQuantity">Remaining Quantity</span></dt>
+                <dd>
+                    <span>{{orderRequest.remainingQuantity}}</span>
+                </dd>
+                <dt><span jhiTranslate="bApp.orderRequest.orderExecuterId">Order Executer Id</span></dt>
+                <dd>
+                    <span>{{orderRequest.orderExecuterId}}</span>
+                </dd>
+                <dt><span jhiTranslate="bApp.orderRequest.sign">Sign</span></dt>
+                <dd>
+                    <div *ngIf="orderRequest.signId">
+                        <a [routerLink]="['/sign', orderRequest.signId, 'view']">{{orderRequest.signInstrumentName}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="bApp.orderRequest.userAccount">User Account</span></dt>
+                <dd>
+                    <div *ngIf="orderRequest.userAccountId">
+                        <a [routerLink]="['/user-account', orderRequest.userAccountId, 'view']">{{orderRequest.userAccountUsername}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/order-request', orderRequest.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

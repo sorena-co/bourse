@@ -4,20 +4,20 @@ import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Data } from '@angular/router';
 
 import { BTestModule } from '../../../test.module';
-import { UserAccountComponent } from 'app/entities/user-account/user-account.component';
-import { UserAccountService } from 'app/entities/user-account/user-account.service';
-import { UserAccount } from 'app/shared/model/user-account.model';
+import { OrderRequestComponent } from 'app/entities/order-request/order-request.component';
+import { OrderRequestService } from 'app/entities/order-request/order-request.service';
+import { OrderRequest } from 'app/shared/model/order-request.model';
 
 describe('Component Tests', () => {
-  describe('UserAccount Management Component', () => {
-    let comp: UserAccountComponent;
-    let fixture: ComponentFixture<UserAccountComponent>;
-    let service: UserAccountService;
+  describe('OrderRequest Management Component', () => {
+    let comp: OrderRequestComponent;
+    let fixture: ComponentFixture<OrderRequestComponent>;
+    let service: OrderRequestService;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [BTestModule],
-        declarations: [UserAccountComponent],
+        declarations: [OrderRequestComponent],
         providers: [
           {
             provide: ActivatedRoute,
@@ -36,12 +36,12 @@ describe('Component Tests', () => {
           }
         ]
       })
-        .overrideTemplate(UserAccountComponent, '')
+        .overrideTemplate(OrderRequestComponent, '')
         .compileComponents();
 
-      fixture = TestBed.createComponent(UserAccountComponent);
+      fixture = TestBed.createComponent(OrderRequestComponent);
       comp = fixture.componentInstance;
-      service = fixture.debugElement.injector.get(UserAccountService);
+      service = fixture.debugElement.injector.get(OrderRequestService);
     });
 
     it('Should call load all on init', () => {
@@ -50,7 +50,7 @@ describe('Component Tests', () => {
       spyOn(service, 'query').and.returnValue(
         of(
           new HttpResponse({
-            body: [new UserAccount(123)],
+            body: [new OrderRequest(123)],
             headers
           })
         )
@@ -61,7 +61,7 @@ describe('Component Tests', () => {
 
       // THEN
       expect(service.query).toHaveBeenCalled();
-      expect(comp.userAccounts[0]).toEqual(jasmine.objectContaining({ id: 123 }));
+      expect(comp.orderRequests[0]).toEqual(jasmine.objectContaining({ id: 123 }));
     });
 
     it('should load a page', () => {
@@ -70,7 +70,7 @@ describe('Component Tests', () => {
       spyOn(service, 'query').and.returnValue(
         of(
           new HttpResponse({
-            body: [new UserAccount(123)],
+            body: [new OrderRequest(123)],
             headers
           })
         )
@@ -81,7 +81,7 @@ describe('Component Tests', () => {
 
       // THEN
       expect(service.query).toHaveBeenCalled();
-      expect(comp.userAccounts[0]).toEqual(jasmine.objectContaining({ id: 123 }));
+      expect(comp.orderRequests[0]).toEqual(jasmine.objectContaining({ id: 123 }));
     });
 
     it('should not load a page is the page is the same as the previous page', () => {
@@ -100,7 +100,7 @@ describe('Component Tests', () => {
       spyOn(service, 'query').and.returnValue(
         of(
           new HttpResponse({
-            body: [new UserAccount(123)],
+            body: [new OrderRequest(123)],
             headers
           })
         )
@@ -113,7 +113,7 @@ describe('Component Tests', () => {
       // THEN
       expect(comp.page).toEqual(0);
       expect(service.query).toHaveBeenCalledTimes(2);
-      expect(comp.userAccounts[0]).toEqual(jasmine.objectContaining({ id: 123 }));
+      expect(comp.orderRequests[0]).toEqual(jasmine.objectContaining({ id: 123 }));
     });
     it('should calculate the sort attribute for an id', () => {
       // WHEN

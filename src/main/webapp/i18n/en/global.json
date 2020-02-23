@@ -8,6 +8,8 @@
       "entities": {
         "main": "Entities",
         "userAccount": "User Account",
+        "sign": "Sign",
+        "orderRequest": "Order Request",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

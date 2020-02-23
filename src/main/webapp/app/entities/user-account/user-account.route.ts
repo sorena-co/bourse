@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, Routes } from '@angular/router';
+import { JhiResolvePagingParams } from 'ng-jhipster';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -28,8 +29,12 @@ export const userAccountRoute: Routes = [
   {
     path: '',
     component: UserAccountComponent,
+    resolve: {
+      pagingParams: JhiResolvePagingParams
+    },
     data: {
       authorities: ['ROLE_USER'],
+      defaultSort: 'id,asc',
       pageTitle: 'bApp.userAccount.home.title'
     },
     canActivate: [UserRouteAccessService]
