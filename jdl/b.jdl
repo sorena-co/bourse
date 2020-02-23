@@ -1,0 +1,10 @@
+entity UserAccount{
+    firstName String,
+    lastName String,
+    accountType AccountType,
+    username String,
+    password String
+}
+enum AccountType{
+    AGAH
+}
