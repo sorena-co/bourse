@@ -15,7 +15,7 @@
         }
     ],
     "relationships": [],
-    "changelogDate": "20200223081758",
+    "changelogDate": "20200223085232",
     "entityTableName": "sign",
     "dto": "mapstruct",
     "pagination": "pagination",

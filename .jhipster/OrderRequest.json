@@ -86,7 +86,7 @@
             "otherEntityField": "username"
         }
     ],
-    "changelogDate": "20200223081759",
+    "changelogDate": "20200223085233",
     "entityTableName": "order_request",
     "dto": "mapstruct",
     "pagination": "pagination",
